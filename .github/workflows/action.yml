@@ -20,4 +20,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
+          file: $GITHUB_WORKSPACE/docker/das2go/Dockerfile
           tags: panos512/das2go:latest
