@@ -20,12 +20,13 @@ jobs:
         with:
           repository: panos512/CMSKubernetes
           path: cmskubernetes
-
+      - run: ls $GITHUB_WORKSPACE
+      - run: ls $GITHUB_WORKSPACE/cmskubernetes/
       - name: Build
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: false
-          context: ${{ github.workspace }}/cmskubernetes/dockerdocker/das2go/
+          context: ${{ github.workspace }}/cmskubernetes/docker/das2go/
           file: ${{ github.workspace }}/cmskubernetes/docker/das2go/Dockerfile
           tags: panos512/das2go:latest
