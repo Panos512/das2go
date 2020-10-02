@@ -16,20 +16,31 @@ jobs:
           repository: panos512/CMSKubernetes
           path: cmskubernetes
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v1 
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ github.workspace }}/cmskubernetes/docker/das/
-          file: ${{ github.workspace }}/cmskubernetes/docker/das/Dockerfile
-          push: true
-          tags: panos512/das:latest
+      # - name: Build
+      #   id: docker_build
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ${{ github.workspace }}/cmskubernetes/docker/das/
+      #     file: ${{ github.workspace }}/cmskubernetes/docker/das/Dockerfile
+      #     push: true
+      #     tags: panos512/das:latest
+
+      - name: Extract K8S config
+        run: ls /; pwd; mkdir /src/; echo $KUBE_CONFIG >> /src/config; export KUBECONFIG=src/config
+        env:
+          KUBE_CONFIG : ${{secrets.KUBE_CONFIG}}
+        shell: bash
+        
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v1
+
+      - run: kubectl get nodes
