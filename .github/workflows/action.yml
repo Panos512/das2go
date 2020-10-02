@@ -15,12 +15,15 @@ jobs:
         with:
           repository: panos512/CMSKubernetes
           path: cmskubernetes
-      - run: cat ${{ github.workspace }}/cmskubernetes/docker/das2go/Dockerfile
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  
       - name: Build
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          push: false
-          context: ${{ github.workspace }}/cmskubernetes/docker/das2go/
-          file: ${{ github.workspace }}/cmskubernetes/docker/das2go/Dockerfile
-          # tags: panos512/das2go:latest
+          push: true
+          context: ${{ github.workspace }}/cmskubernetes/docker/das/
+          tags: panos512/das:latest
