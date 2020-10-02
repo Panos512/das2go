@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Dockerfile repo
+        uses: actions/checkout@v2
+        with:
+          repository: panos512/CMSKubernetes
+      - run: echo $GITHUB_WORKSPACE
+      - run: ls $GITHUB_WORKSPACE
+      - name: Build
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: panos512/das2go:latest
