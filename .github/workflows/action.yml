@@ -9,13 +9,8 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
-      - name: Checkout Dockerfile repo
+      - name: Pull CMSKubernetes repo
         uses: actions/checkout@v2
         with:
           repository: panos512/CMSKubernetes
