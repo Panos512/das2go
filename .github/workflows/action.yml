@@ -23,4 +23,4 @@ jobs:
           push: false
           context: ${{ github.workspace }}/cmskubernetes/docker/das2go/
           file: ${{ github.workspace }}/cmskubernetes/docker/das2go/Dockerfile
-          tags: panos512/das2go:latest
+          # tags: panos512/das2go:latest
